@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .layout {
+            display: flex;
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .sidebar {
+    width: 240px;
+    background: white;
+    padding: 16px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    height: fit-content;
+}
+
+        .main {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+        input, textarea, select {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    margin: 6px 0;
+    border: 1px solid #d0d7de;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 4px rgba(52,152,219,0.15);
+}
+
+        textarea {
+            height: 120px;
+        }
+
+        button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin: 5px 5px 10px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+    background: white;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+}
+
+li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+        .sidebar li {
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        .sidebar li:hover {
+            background: #eee;
+        }
+.dark .sidebar li:hover {
+    background: #555;
+    color: #00e5ff; /* celestito fachero */
+}
+
+.sidebar li.activa {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.dark .sidebar li.activa {
+    background: #00bcd4; /* celeste más visible en oscuro */
+    color: black;
+}
+
+        /* 🌙 MODO OSCURO */
+        .dark {
+            background: #1e1e1e;
+            color: #f1f1f1;
+        }
+.dark h1 {
+    color: #00d1ff; /* celestito moderno fachero */
+}
+
+        .dark li {
+            background: #2c2c2c;
+        }
+
+        .dark input,
+        .dark textarea,
+        .dark select {
+            background: #2c2c2c;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .dark button {
+            background: #444;
+        }
+
+        .dark button:hover {
+            background: #666;
+        }
+
+        .dark .sidebar {
+            background: #2c2c2c;
+        }
+.dark .main {
+
+.dark #visor {
+    background: #2c2c2c;
+    color: white;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+.dark #visor h2 {
+    color: white;
+}
+
+.dark #visor hr {
+    border-color: #555;
+}
+
+    background: #2c2c2c;
+    color: white;
+}
+
+.dark h1,
+.dark h2,
+.dark h3 {
+    color: white;
+}
+.dark .sidebar li {
+    color: #ffffff; /* texto blanco visible */
+}
+
+#visor {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    color: black;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    display: none;
+}
+
+.dark #visor {
+    background: #2c2c2c;
+    color: white;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+.dark #visor h2 {
+    color: white;
+}
+
+.dark #visor hr {
+    border-color: #555;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .layout {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sidebar,
+    .main {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .sidebar {
+        order: 1;
+    }
+
+    .main {
+        order: 2;
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+        margin: 6px 0;
+    }
+
+    input,
+    textarea,
+    select {
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    li {
+        padding: 12px;
+    }
+
+    #loginBox {
+        margin: 20px auto !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+}
+
+    </style>
+</head>
+
+<body>
+
+<div id="loginBox" style="
+max-width:400px;
+margin:80px auto;
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 8px 24px rgba(0,0,0,0.08);
+">
+
+<h2 style="text-align:center;">🔐 Iniciar sesión</h2>
+
+<input id="usuario" placeholder="Usuario"><br><br>
+
+<input id="clave" type="password" placeholder="Contraseña"><br><br>
+
+<button onclick="login()">Entrar</button>
+<button onclick="registrar()">Crear cuenta</button>
+
+<p id="mensajeLogin"></p>
+
+</div>
+<button onclick="toggleModo()">🌙 Modo oscuro</button>
+
+<div class="layout" id="app" style="display:none;">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h3>Categorías</h3>
+	<button onclick="verOcultos()">👁 Ver ocultos</button>
+<button onclick="verTodo()">🔄 Ver todo</button>
+        <ul id="categorias"></ul>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <h1>📚 Biblioteca</h1>
+	<input id="buscador" placeholder="Buscar..." oninput="cargar()" style="margin-bottom:10px;">
+        <input id="title" placeholder="Título"><br><br>
+
+        <button onclick="negrita()">Negrita</button>
+        <button onclick="subrayado()">Subrayado</button>
+        <br><br>
+
+        <textarea id="body" placeholder="Contenido"></textarea><br><br>
+
+        <input type="file" id="imagen">
+        <button onclick="subirImagen()">Subir imagen</button>
+        <p id="urlImagen"></p>
+<label>Categoría / Subcategoría:</label><br>
+<select id="parent">
+    <option value="">Sin categoría</option>
+</select>
+<small>Podés elegir una categoría o una subcategoría</small>
+        <br><br>
+
+        <button onclick="crear()">Guardar</button>
+<button onclick="cancelarEdicion()">Cancelar</button>
+
+        <h2>Lista</h2>
+<ul id="lista"></ul>
+
+<div id="visor"></div>
+
+        <button onclick="descargarPDF()">Descargar PDF</button>
+
+    </div>
+</div>
+
+<script>
+
+
+function verTodo() {
+
+    // sacar selección de categorías
+    document.querySelectorAll('#categorias li').forEach(li => {
+        li.classList.remove('activa');
+    });
+
+    cargar();
+}
+
+function cancelarEdicion() {
+    editandoId = null;
+    document.getElementById('title').value = "";
+    document.getElementById('body').value = "";
+}
+
+
+function verOcultos() {
+    cargar("ocultos");
+}
+
+let editandoId = null;
+
+async function editar(id) {
+    const res = await fetch('/content');
+    const data = await res.json();
+
+    const item = data.find(i => i.id === id);
+
+    document.getElementById('title').value = item.title;
+    document.getElementById('body').value = item.body;
+
+    editandoId = id;
+}
+
+async function eliminar(id) {
+    if (!confirm("¿Seguro que querés borrar este tema?")) return;
+
+    await fetch(`/content/${id}`, {
+        method: 'DELETE'
+    });
+
+    cargar();
+    cargarCategorias();
+    cargarSidebar();
+}
+
+function toggleModo() {
+    document.body.classList.toggle("dark");
+}
+
+function negrita() {
+    aplicarFormato("b");
+}
+
+function subrayado() {
+    aplicarFormato("u");
+}
+
+function aplicarFormato(tag) {
+    const textarea = document.getElementById('body');
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
+    const texto = textarea.value;
+
+    textarea.value =
+        texto.substring(0, start) +
+        `<${tag}>${texto.substring(start, end)}</${tag}>` +
+        texto.substring(end);
+}
+
+function descargarUno(id) {
+    window.location = `/pdf/${id}`;
+}
+
+async function toggleVisibilidad(id) {
+    await fetch(`/toggle-visibility/${id}`, {
+        method: 'POST'
+    });
+
+    await cargar();
+    await cargarCategorias();
+    await cargarSidebar();
+}
+
+function descargarPDF() {
+    window.location = '/pdf';
+}
+
+async function crear() {
+    const title = document.getElementById('title').value;
+    const body = document.getElementById('body').value;
+    const parent_id = document.getElementById('parent').value;
+
+    if (editandoId) {
+        await fetch(`/content/${editandoId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ title, body })
+        });
+
+        editandoId = null;
+    } else {
+        await fetch('/content', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ title, body, parent_id })
+        });
+    }
+
+    document.getElementById('title').value = "";
+    document.getElementById('body').value = "";
+
+    cargar();
+    cargarCategorias();
+    cargarSidebar();
+    alert("Guardado correctamente 😎");
+}
+
+async function cargar(filtro = null) {
+    const res = await fetch('/content');
+    const data = await res.json();
+
+    const lista = document.getElementById('lista');
+    lista.innerHTML = "";
+
+    let filtrados;
+
+    if (filtro === "ocultos") {
+        filtrados = data.filter(item => item.hidden == 1);
+    } else if (filtro === null) {
+        filtrados = data.filter(item => item.hidden != 1);
+    } else {
+        filtrados = data.filter(item =>
+            Number(item.parent_id) === Number(filtro) &&
+            item.hidden != 1
+        );
+    }
+
+    // 🔍 BUSCADOR
+    const texto = document.getElementById('buscador').value.toLowerCase();
+
+    filtrados = filtrados.filter(item =>
+        item.title.toLowerCase().includes(texto) ||
+        item.body.toLowerCase().includes(texto)
+    );
+
+    filtrados.forEach(item => {
+        const li = document.createElement('li');
+
+        li.innerHTML = `
+<b onclick="verTema(${item.id})" style="cursor:pointer;">
+${item.title}
+</b>
+
+<button onclick="descargarUno(${item.id})">PDF</button>
+<button onclick="eliminar(${item.id})" style="background:red;">Borrar</button>
+<button onclick="toggleVisibilidad(${item.id})">
+${item.hidden == 1 ? "Mostrar" : "Ocultar"}
+</button>
+<button onclick="editar(${item.id})">Editar</button>
+`;
+
+        lista.appendChild(li);
+    });
+}
+async function cargarCategorias() {
+    const res = await fetch('/content');
+    const data = await res.json();
+
+    const select = document.getElementById('parent');
+    select.innerHTML = `<option value="">Sin categoría</option>`;
+
+    const categorias = data.filter(item => !item.parent_id);
+
+    categorias.forEach(cat => {
+
+        const option = document.createElement('option');
+        option.value = cat.id;
+        option.textContent = cat.title;
+        select.appendChild(option);
+
+        const hijas = data.filter(item => item.parent_id == cat.id);
+
+        hijas.forEach(sub => {
+            const subOption = document.createElement('option');
+            subOption.value = sub.id;
+            subOption.textContent = "↳ " + sub.title;
+            select.appendChild(subOption);
+        });
+
+    });
+}
+
+
+async function cargarSidebar() {
+    const res = await fetch('/content');
+    const data = await res.json();
+
+    const lista = document.getElementById('categorias');
+    lista.innerHTML = "";
+
+const categorias = data.filter(item => !item.parent_id);
+
+    categorias.forEach(cat => {
+        const li = document.createElement('li');
+
+const cantidad = data.filter(i => i.parent_id == cat.id && i.hidden != 1).length;
+
+li.textContent = cat.title + " (" + cantidad + ")";
+
+li.onclick = () => filtrarPorCategoria(cat.id, li);
+
+        lista.appendChild(li);
+    });
+}
+
+function filtrarPorCategoria(id, elemento) {
+
+    // sacar selección anterior
+    document.querySelectorAll('#categorias li').forEach(li => {
+        li.classList.remove('activa');
+    });
+
+    // marcar la actual
+    elemento.classList.add('activa');
+
+    cargar(id);
+}
+async function subirImagen() {
+    const file = document.getElementById('imagen').files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const res = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await res.json();
+
+    document.getElementById('body').value += `\n<img src="${data.url}" width="300">\n`;
+}
+
+async function verTema(id) {
+    const res = await fetch('/content');
+    const data = await res.json();
+
+    const item = data.find(i => i.id === id);
+
+    const visor = document.getElementById('visor');
+
+    visor.style.display = "block";
+
+    visor.innerHTML = `
+        <h2>${item.title}</h2>
+        <hr>
+        <div>${item.body}</div>
+    `;
+}
+let usuarioActual = null;
+
+async function login() {
+
+    const username = document.getElementById('usuario').value.trim();
+    const password = document.getElementById('clave').value.trim();
+
+    const res = await fetch('/login', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+
+    if(data.ok === true){
+
+        usuarioActual = data.user_id;
+
+        document.getElementById('loginBox').style.display = "none";
+        document.getElementById('app').style.display = "flex";
+
+        cargar();
+        cargarCategorias();
+        cargarSidebar();
+
+    } else {
+        document.getElementById('mensajeLogin').innerText =
+        "Datos incorrectos";
+    }
+}
+
+async function registrar() {
+
+    const username = document.getElementById('usuario').value;
+    const password = document.getElementById('clave').value;
+
+    const res = await fetch('/register', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ username, password })
+    });
+
+    const texto = await res.text();
+
+    document.getElementById('mensajeLogin').innerText = texto;
+}
+
+
+
+
+</script>
+
+</body>
+</html>
